@@ -1,7 +1,8 @@
 <template>
   <div>
-    <NuxtRouteAnnouncer />
+    test123
+    <!-- <NuxtWelcome /> -->
+    <!-- <NuxtRouteAnnouncer /> -->
     <SentryErrorButton/>
-    <NuxtWelcome />
   </div>
 </template>

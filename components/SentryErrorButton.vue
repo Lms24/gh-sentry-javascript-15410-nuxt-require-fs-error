@@ -4,18 +4,8 @@ Feel free to delete this file.
 -->
 
 <script setup>
-  import * as Sentry from '@sentry/nuxt';
-  
+
   const throwError = () => {
-    Sentry.startSpan(
-      {
-        name: 'Example Frontend Span',
-        op: 'test'
-      },
-      () => {
-        throw new Error('Sentry Example Error');
-      }
-    )
   };
 </script>
 
