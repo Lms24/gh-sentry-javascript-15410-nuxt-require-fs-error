@@ -6,6 +6,7 @@ Feel free to delete this file.
 <script setup>
 
   const throwError = () => {
+    throw Error('test error')
   };
 </script>
 

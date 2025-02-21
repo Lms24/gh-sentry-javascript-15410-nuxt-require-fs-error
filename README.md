@@ -1,23 +1,12 @@
 # Nuxt Minimal Starter
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
-
 ## Setup
 
 Make sure to install dependencies:
 
 ```bash
-# npm
-npm install
-
 # pnpm
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
 ## Development Server
@@ -25,17 +14,8 @@ bun install
 Start the development server on `http://localhost:3000`:
 
 ```bash
-# npm
-npm run dev
-
 # pnpm
 pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
 ## Production
@@ -43,33 +23,46 @@ bun run dev
 Build the application for production:
 
 ```bash
-# npm
-npm run build
-
 # pnpm
 pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
-Locally preview production build:
+## Reproduction
 
-```bash
-# npm
-npm run preview
+Everything affects **dev mode** in `pnpm`.
 
-# pnpm
-pnpm preview
+Trying nightly from this PR: https://github.com/nuxt/nuxt/pull/30922
 
-# yarn
-yarn preview
+- `nuxt-nightly@3.16.0-28986784.baad3d55` (run: https://github.com/nuxt/nuxt/actions/runs/13245896851/job/37022947721)
+- `nuxt-nightly@4.0.0-28986773.72d524b2` (run: https://github.com/nuxt/nuxt/actions/runs/13245849432/job/36984010347)
 
-# bun
-bun run preview
+### Nuxt 3.15.4
+
+Getting this error at startup:
+
+```
+ERROR  [nuxt] [request error] [unhandled] [500] Cannot find module '/[...]/gh-sentry-javascript-15410-nuxt-require-fs-error/node_modules/.pnpm/@opentelemetry+resources@1.30.1_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/resources/build/esm/detectors/platform/node/machine-id/execAsync' imported from /[...]/gh-sentry-javascript-15410-nuxt-require-fs-error/node_modules/.pnpm/@opentelemetry+resources@1.30.1_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/resources/build/esm/detectors/platform/node/machine-id/getMachineId-darwin.js
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Changing the import `import { execAsync } from './execAsync';` in `getMachineId-darwin.js` to `import { execAsync } from './execAsync.js';` (adding the file extension), it works.
+
+### Nuxt nuxt-nightly@3.16.0-28986784.baad3d55
+
+Server is stuck here (also without having Sentry installed):
+
+```
+ℹ Running with compatibility version 3                                                                                                                                                                                                                                                          nuxt 12:10:32 PM
+ℹ Re-optimizing dependencies because lockfile has changed                                                                                                                                                                                                                                            12:10:32 PM
+✔ Vite client built in 25ms                                                                                                                                                                                                                                                                          12:10:32 PM
+✔ Vite server built in 135ms                                                                                                                                                                                                                                                                         12:10:32 PM
+✔ Nuxt Nitro server built in 603 ms                                                                                                                                                                                                                                                            nitro 12:10:33 PM
+ℹ Vite client warmed up in 1ms                                                                                                                                                                                                                                                                       12:10:33 PM
+ℹ Vite server warmed up in 1653ms    
+```
+
+Getting 503 Service Unavailable in browser.
+
+
+### Nuxt nuxt-nightly@4.0.0-28986773.72d524b2 
+
+-> everything works out of the box
