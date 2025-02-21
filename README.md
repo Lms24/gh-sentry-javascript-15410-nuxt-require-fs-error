@@ -33,7 +33,7 @@ Everything affects **dev mode** in `pnpm`.
 
 Trying nightly from this PR: https://github.com/nuxt/nuxt/pull/30922
 
-- `nuxt-nightly@3.16.0-28986784.baad3d55` (run: https://github.com/nuxt/nuxt/actions/runs/13245896851/job/37022947721)
+- No nightly available for v3.16 (run: https://github.com/nuxt/nuxt/actions/runs/13219343255/job/36902669922)
 - `nuxt-nightly@4.0.0-28986773.72d524b2` (run: https://github.com/nuxt/nuxt/actions/runs/13245849432/job/36984010347)
 
 ### Nuxt 3.15.4
@@ -46,7 +46,9 @@ ERROR  [nuxt] [request error] [unhandled] [500] Cannot find module '/[...]/gh-se
 
 Changing the import `import { execAsync } from './execAsync';` in `getMachineId-darwin.js` to `import { execAsync } from './execAsync.js';` (adding the file extension), it works.
 
-### Nuxt nuxt-nightly@3.16.0-28986784.baad3d55
+### Nuxt nuxt-nightly@3.16.0-29001470.86c960c6
+
+Latest nightly when listing them with: `pnpm view nuxt-nightly versions`
 
 Server is stuck here (also without having Sentry installed):
 
@@ -62,7 +64,6 @@ Server is stuck here (also without having Sentry installed):
 
 Getting 503 Service Unavailable in browser.
 
-
-### Nuxt nuxt-nightly@4.0.0-28986773.72d524b2 
+### Nuxt nuxt-nightly@4.0.0-28986773.72d524b2
 
 -> everything works out of the box
